@@ -2037,9 +2037,18 @@ export default {
             const token = authHeader.split(' ')[1];
             const secret = new TextEncoder().encode(jwtSecret);
 
+            let payload: any = null;
             try {
-                const { payload } = await jwtVerify(token, secret);
+                ({ payload } = await jwtVerify(token, secret));
+            } catch {
+                // jose throws TypeError for some malformed headers (for example
+                // alg:none) and those errors used to escape this route's catch as
+                // a 500. Any token that cannot be verified is simply unauthorized.
+                return sessionInvalid('Invalid token');
+            }
+            if (payload === null) return sessionInvalid('Invalid token');
 
+            try {
                 // jwtVerify only proves "signed with JWT_SECRET" — it says nothing about
                 // what the token is FOR, and this worker signs several kinds with that
                 // one secret. The passkey challenge tokens minted by the *public*,
