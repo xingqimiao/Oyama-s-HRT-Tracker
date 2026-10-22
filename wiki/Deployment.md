@@ -5,11 +5,11 @@ every `/api/*` route. The same sources run in a Docker container, where the
 Worker runs under Wrangler's local runtime. Choose the path that matches where
 you want your data to live.
 
-| Option | Runs on | Data lives in | Best for |
-|---|---|---|---|
-| [Docker](Deployment-Docker) | One container (`wrangler dev` + local D1/R2) | `./data`, mounted at `/data` | A home server, a VPS, or a LAN machine you control |
-| [Cloudflare Workers](Deployment-Cloudflare) | Cloudflare's runtime | D1 and R2 | No server to maintain; global HTTPS and a custom domain |
-| [Local development](Deployment-Local) | Vite on `:3000`, Worker on `:8787` | Local D1/R2 store | Working on the code |
+| Option                                      | Runs on                                      | Data lives in                | Best for                                                |
+| ------------------------------------------- | -------------------------------------------- | ---------------------------- | ------------------------------------------------------- |
+| [Docker](Deployment-Docker)                 | One container (`wrangler dev` + local D1/R2) | `./data`, mounted at `/data` | A home server, a VPS, or a LAN machine you control      |
+| [Cloudflare Workers](Deployment-Cloudflare) | Cloudflare's runtime                         | D1 and R2                    | No server to maintain; global HTTPS and a custom domain |
+| [Local development](Deployment-Local)       | Vite on `:3000`, Worker on `:8787`           | Local D1/R2 store            | Working on the code                                     |
 
 Plain `docker run` uses the same image and volume as Docker Compose and is
 covered on the Docker page.

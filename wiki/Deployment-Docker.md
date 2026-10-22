@@ -35,40 +35,40 @@ format cannot represent it.
 
 ### Core
 
-| Setting | Required | Meaning |
-|---|---|---|
-| `JWT_SECRET` | Yes | Signs sign-in tokens. At least 32 characters, at least 8 distinct characters, and none of the words `secret`, `fallback-secret`, `fallback_secret`, `test-secret`, `dev-secret`, `default`, `password`, `123456`, or `changeme` in any case. Generate with `openssl rand -base64 48`. |
-| `ADMIN_USERNAME`, `ADMIN_PASSWORD` | No | Built-in administrator. Set both or neither. The username is compared case-insensitively and is reserved even if the password is empty. |
-| `PUBLIC_APP_ORIGIN` | No | Public origin for share links and passkey sign-in, for example `https://hrt.example.com`. |
-| `TRUSTED_IP_SOURCE` | No | `cf` (default), `x-forwarded-for`, or `none`. Controls where per-address rate limits read the client address. |
-| `ENVIRONMENT` | No | Only `development` makes a 500 response include the error text. The container leaves it unset, so it behaves as production. |
+| Setting                            | Required | Meaning                                                                                                                                                                                                                                                                               |
+| ---------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `JWT_SECRET`                       | Yes      | Signs sign-in tokens. At least 32 characters, at least 8 distinct characters, and none of the words `secret`, `fallback-secret`, `fallback_secret`, `test-secret`, `dev-secret`, `default`, `password`, `123456`, or `changeme` in any case. Generate with `openssl rand -base64 48`. |
+| `ADMIN_USERNAME`, `ADMIN_PASSWORD` | No       | Built-in administrator. Set both or neither. The username is compared case-insensitively and is reserved even if the password is empty.                                                                                                                                               |
+| `PUBLIC_APP_ORIGIN`                | No       | Public origin for share links and passkey sign-in, for example `https://hrt.example.com`.                                                                                                                                                                                             |
+| `TRUSTED_IP_SOURCE`                | No       | `cf` (default), `x-forwarded-for`, or `none`. Controls where per-address rate limits read the client address.                                                                                                                                                                         |
+| `ENVIRONMENT`                      | No       | Only `development` makes a 500 response include the error text. The container leaves it unset, so it behaves as production.                                                                                                                                                           |
 
 Changing `JWT_SECRET` invalidates every existing session; there is no
 previous-secret fallback.
 
 ### Optional: `hrt://` and F2F
 
-| Setting | Default | Meaning |
-|---|---|---|
-| `HRT_RAW_ENABLED` | off | `1` starts the raw TLS server and enables `hrt://` pairing in the web app. Requires a service token and certificate/key. Cloudflare deployments cannot use this. |
-| `HRT_SERVICE_TOKEN` | none | At least 16 characters; shared by the Worker and raw server via the `x-hrt-service` header. In Docker, use `HRT_SERVICE_TOKEN_FILE` instead. |
-| `HRT_SERVICE_TOKEN_FILE` | none | Path to the token file. Required when `HRT_RAW_ENABLED=1` or `HRT_F2F_ESCROW=1`. The entrypoint requires mode 600 exactly (mode 400 is refused) and at least 16 characters. |
-| `HRT_IP_KEY`, `HRT_IP_KEY_FILE` | generated | Base64 of 32 bytes; encrypts addresses stored with pairing requests. Docker creates `/data/hrt/ip-key` once if neither is supplied. |
-| `HRT_RAW_PORT` | `9443` | Raw TLS port inside the container. |
-| `HRT_RAW_CERT`, `HRT_RAW_KEY` | none | PEM certificate and key for the raw server. The key must be mode 600. Docker does not create them. |
-| `HRT_WEB_ORIGIN` | `http://127.0.0.1:8787` | Where the raw server reaches the web app. Set it if you change `PORT`. |
-| `HRT_RAW_MAX_CONNECTIONS` | `8` | Concurrent raw connections. |
-| `HRT_F2F_ESCROW` | off | `1` reserves one escrow key for each new F2F cohort from the operator's pool. |
-| `HRT_ESCROW_KEY`, `HRT_ESCROW_KEY_FILE` | generated | Base64 of 32 bytes; wraps stored escrow private keys. Back it up. Docker creates `/data/hrt/escrow-key` once if neither is supplied. |
+| Setting                                 | Default                 | Meaning                                                                                                                                                                     |
+| --------------------------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `HRT_RAW_ENABLED`                       | off                     | `1` starts the raw TLS server and enables `hrt://` pairing in the web app. Requires a service token and certificate/key. Cloudflare deployments cannot use this.            |
+| `HRT_SERVICE_TOKEN`                     | none                    | At least 16 characters; shared by the Worker and raw server via the `x-hrt-service` header. In Docker, use `HRT_SERVICE_TOKEN_FILE` instead.                                |
+| `HRT_SERVICE_TOKEN_FILE`                | none                    | Path to the token file. Required when `HRT_RAW_ENABLED=1` or `HRT_F2F_ESCROW=1`. The entrypoint requires mode 600 exactly (mode 400 is refused) and at least 16 characters. |
+| `HRT_IP_KEY`, `HRT_IP_KEY_FILE`         | generated               | Base64 of 32 bytes; encrypts addresses stored with pairing requests. Docker creates `/data/hrt/ip-key` once if neither is supplied.                                         |
+| `HRT_RAW_PORT`                          | `9443`                  | Raw TLS port inside the container.                                                                                                                                          |
+| `HRT_RAW_CERT`, `HRT_RAW_KEY`           | none                    | PEM certificate and key for the raw server. The key must be mode 600. Docker does not create them.                                                                          |
+| `HRT_WEB_ORIGIN`                        | `http://127.0.0.1:8787` | Where the raw server reaches the web app. Set it if you change `PORT`.                                                                                                      |
+| `HRT_RAW_MAX_CONNECTIONS`               | `8`                     | Concurrent raw connections.                                                                                                                                                 |
+| `HRT_F2F_ESCROW`                        | off                     | `1` reserves one escrow key for each new F2F cohort from the operator's pool.                                                                                               |
+| `HRT_ESCROW_KEY`, `HRT_ESCROW_KEY_FILE` | generated               | Base64 of 32 bytes; wraps stored escrow private keys. Back it up. Docker creates `/data/hrt/escrow-key` once if neither is supplied.                                        |
 
 ### Container-only
 
-| Setting | Default | Meaning |
-|---|---|---|
-| `PORT` | `8787` | Port Wrangler listens on inside the container. The health check follows it. |
-| `PERSIST_DIR` | `/data` | Database, avatar store, and generated keys. |
-| `D1_DATABASE_NAME` | `hrt-tracker-prod` | Database the migrations are applied to. Matches `wrangler.toml`. |
-| `BIND_HOST` | `0.0.0.0` | Address Wrangler binds inside the container. Use `127.0.0.1` only with `--network host` or a shared network namespace; otherwise the published port cannot reach it. |
+| Setting            | Default            | Meaning                                                                                                                                                              |
+| ------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PORT`             | `8787`             | Port Wrangler listens on inside the container. The health check follows it.                                                                                          |
+| `PERSIST_DIR`      | `/data`            | Database, avatar store, and generated keys.                                                                                                                          |
+| `D1_DATABASE_NAME` | `hrt-tracker-prod` | Database the migrations are applied to. Matches `wrangler.toml`.                                                                                                     |
+| `BIND_HOST`        | `0.0.0.0`          | Address Wrangler binds inside the container. Use `127.0.0.1` only with `--network host` or a shared network namespace; otherwise the published port cannot reach it. |
 
 ## What happens at startup
 

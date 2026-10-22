@@ -2,9 +2,9 @@
 
 The app has two servers in development:
 
-| Process | Address | What it serves |
-|---|---|---|
-| Vite | `http://localhost:3000` | The React app, with hot reload |
+| Process                 | Address                 | What it serves                       |
+| ----------------------- | ----------------------- | ------------------------------------ |
+| Vite                    | `http://localhost:3000` | The React app, with hot reload       |
 | Worker (`wrangler dev`) | `http://127.0.0.1:8787` | `/api/*`, D1, R2, scheduled handlers |
 
 Vite proxies `/api` to the Worker. Open `:3000` while developing the

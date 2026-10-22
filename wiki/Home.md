@@ -11,12 +11,12 @@ do not create yourself.
 
 ## Start here
 
-| Page | What it covers |
-|---|---|
-| [Usage](Usage) | Recording doses, plans, labs, weight, supplies, backup, sharing, account settings |
-| [Deployment](Deployment) | Choosing between Docker, Cloudflare Workers, and local development |
-| [Dependencies](Dependencies) | Runtime libraries, build tools, external services, and model credits |
-| [Security](Security) | Hardening a self-hosted instance and reporting a vulnerability |
+| Page                         | What it covers                                                                    |
+| ---------------------------- | --------------------------------------------------------------------------------- |
+| [Usage](Usage)               | Recording doses, plans, labs, weight, supplies, backup, sharing, account settings |
+| [Deployment](Deployment)     | Choosing between Docker, Cloudflare Workers, and local development                |
+| [Dependencies](Dependencies) | Runtime libraries, build tools, external services, and model credits              |
+| [Security](Security)         | Hardening a self-hosted instance and reporting a vulnerability                    |
 
 ## What it does
 

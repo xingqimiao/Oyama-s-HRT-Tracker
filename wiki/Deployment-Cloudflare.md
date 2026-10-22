@@ -103,9 +103,9 @@ guessable key. Changing the secret signs every session out.
 
 Secrets are not the same as variables:
 
-| Kind | Set with | Examples |
-|---|---|---|
-| Secret | `wrangler secret put` or the dashboard | `JWT_SECRET`, `ADMIN_USERNAME`, `ADMIN_PASSWORD` |
+| Kind     | Set with                                     | Examples                                                |
+| -------- | -------------------------------------------- | ------------------------------------------------------- |
+| Secret   | `wrangler secret put` or the dashboard       | `JWT_SECRET`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`        |
 | Variable | `[vars]` in `wrangler.toml` or the dashboard | `PUBLIC_APP_ORIGIN`, `TRUSTED_IP_SOURCE`, `ENVIRONMENT` |
 
 `TRUSTED_IP_SOURCE` defaults to `cf`, which reads `CF-Connecting-IP`. On

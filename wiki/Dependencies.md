@@ -7,20 +7,20 @@ a lockfile: the exact resolved versions are in `package-lock.json`,
 
 ## Runtime libraries
 
-| Package | Version | Used for |
-|---|---|---|
-| `react`, `react-dom` | `^18.3.1` | The interface |
-| `@noble/ciphers` | `^2.4.0` | Symmetric primitives behind encrypted backups and shares |
-| `@noble/hashes` | `^2.4.0` | Hash primitives used by the crypto code |
-| `bcryptjs` | `^3.0.3` | Password hashing in the Worker |
-| `jose` | `^6.1.3` | JWT signing and verification for sessions |
-| `openpgp` | `^6.3.2` | F2F keyrings and escrow operations in the browser |
-| `qrcode.react` | `^4.1.0` | Pairing QR codes |
-| `jspdf` | `^4.1.0` | PDF export |
-| `jspdf-autotable` | `^5.0.7` | Tables in the PDF export |
-| `lucide-react` | `^1.52.0` | Icons |
-| `react-easy-crop` | `^5.5.6` | Avatar cropping |
-| `uuid` | `^11.1.1` | Client-side identifiers |
+| Package              | Version   | Used for                                                 |
+| -------------------- | --------- | -------------------------------------------------------- |
+| `react`, `react-dom` | `^18.3.1` | The interface                                            |
+| `@noble/ciphers`     | `^2.4.0`  | Symmetric primitives behind encrypted backups and shares |
+| `@noble/hashes`      | `^2.4.0`  | Hash primitives used by the crypto code                  |
+| `bcryptjs`           | `^3.0.3`  | Password hashing in the Worker                           |
+| `jose`               | `^6.1.3`  | JWT signing and verification for sessions                |
+| `openpgp`            | `^6.3.2`  | F2F keyrings and escrow operations in the browser        |
+| `qrcode.react`       | `^4.1.0`  | Pairing QR codes                                         |
+| `jspdf`              | `^4.1.0`  | PDF export                                               |
+| `jspdf-autotable`    | `^5.0.7`  | Tables in the PDF export                                 |
+| `lucide-react`       | `^1.52.0` | Icons                                                    |
+| `react-easy-crop`    | `^5.5.6`  | Avatar cropping                                          |
+| `uuid`               | `^11.1.1` | Client-side identifiers                                  |
 
 The cryptography is deliberately split: the browser holds the keys and does
 the encryption; the Worker stores ciphertext and verifies sessions. The server
@@ -28,21 +28,21 @@ never needs a library that can decrypt a backup.
 
 ## Build and test tools
 
-| Package | Version | Used for |
-|---|---|---|
-| `typescript` | `~5.8.2` | Type checking |
-| `vite` | `^6.2.0` | Development server and production build |
-| `@vitejs/plugin-react` | `^5.0.0` | React support in Vite |
-| `vite-plugin-pwa` | `^1.2.0` | Manifest and service worker |
-| `tailwindcss`, `@tailwindcss/postcss`, `postcss` | `^4.1.18`, `^4.1.18`, `^8.5.6` | Styling |
-| `vitest` | `^4.1.11` | Unit tests |
-| `@playwright/test` | `^1.64.1` | End-to-end tests |
-| `wrangler` | `^4.147.0` | Local Worker, D1/R2, migrations, deploy |
-| `@cloudflare/workers-types` | `^5.20261005.1` | Worker API types |
-| `eslint`, `@eslint/js`, `typescript-eslint`, `eslint-plugin-react-hooks`, `globals` | `^10.12.0`, `^10.0.1`, `^8.71.1`, `^7.1.1`, `^17.13.0` | Linting |
-| `prettier` | `^3.9.10` | Formatting |
-| `@tauri-apps/cli` | `^1.6.3` | Desktop build |
-| `@types/node`, `@types/react`, `@types/react-dom` | `^22.14.0`, `^18.3.31`, `^18.3.7` | Type definitions |
+| Package                                                                             | Version                                                | Used for                                |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------- |
+| `typescript`                                                                        | `~5.8.2`                                               | Type checking                           |
+| `vite`                                                                              | `^6.2.0`                                               | Development server and production build |
+| `@vitejs/plugin-react`                                                              | `^5.0.0`                                               | React support in Vite                   |
+| `vite-plugin-pwa`                                                                   | `^1.2.0`                                               | Manifest and service worker             |
+| `tailwindcss`, `@tailwindcss/postcss`, `postcss`                                    | `^4.1.18`, `^4.1.18`, `^8.5.6`                         | Styling                                 |
+| `vitest`                                                                            | `^4.1.11`                                              | Unit tests                              |
+| `@playwright/test`                                                                  | `^1.64.1`                                              | End-to-end tests                        |
+| `wrangler`                                                                          | `^4.147.0`                                             | Local Worker, D1/R2, migrations, deploy |
+| `@cloudflare/workers-types`                                                         | `^5.20261005.1`                                        | Worker API types                        |
+| `eslint`, `@eslint/js`, `typescript-eslint`, `eslint-plugin-react-hooks`, `globals` | `^10.12.0`, `^10.0.1`, `^8.71.1`, `^7.1.1`, `^17.13.0` | Linting                                 |
+| `prettier`                                                                          | `^3.9.10`                                              | Formatting                              |
+| `@tauri-apps/cli`                                                                   | `^1.6.3`                                               | Desktop build                           |
+| `@types/node`, `@types/react`, `@types/react-dom`                                   | `^22.14.0`, `^18.3.31`, `^18.3.7`                      | Type definitions                        |
 
 ## Desktop
 
@@ -53,15 +53,15 @@ Dependabot is configured not to propose that major upgrade.
 
 ## Platform services
 
-| Service | Role | Required? |
-|---|---|---|
-| Cloudflare Workers | Runs the Worker and serves the app | For the serverless deployment |
-| Cloudflare D1 | Accounts, sessions, encrypted backups, shares | For the serverless deployment |
-| Cloudflare R2 | Avatars | For the serverless deployment |
-| Docker / Docker Compose | Runs the same Worker locally in a container | For the container deployment |
-| GitHub Container Registry | Published images | Optional; the package is private for now |
-| npm | JavaScript dependencies | Build time |
-| Rust / Cargo | Desktop app | Only for the desktop build |
+| Service                   | Role                                          | Required?                                |
+| ------------------------- | --------------------------------------------- | ---------------------------------------- |
+| Cloudflare Workers        | Runs the Worker and serves the app            | For the serverless deployment            |
+| Cloudflare D1             | Accounts, sessions, encrypted backups, shares | For the serverless deployment            |
+| Cloudflare R2             | Avatars                                       | For the serverless deployment            |
+| Docker / Docker Compose   | Runs the same Worker locally in a container   | For the container deployment             |
+| GitHub Container Registry | Published images                              | Optional; the package is private for now |
+| npm                       | JavaScript dependencies                       | Build time                               |
+| Rust / Cargo              | Desktop app                                   | Only for the desktop build               |
 
 There is no external database, queue, cache, or third-party analytics service
 in the request path. The app does not call a remote model; concentration
